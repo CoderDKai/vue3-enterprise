@@ -1,0 +1,19 @@
+{
+  "name": "@geniusk/business",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/esm/index.mjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/esm/index.d.ts",
+  "dependencies": {
+    "@geniusk/components": "^0.0.1"
+  },
+  "devDependencies": {
+    "vue": "^3.2.39"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.39"
+  },
+  "author": "",
+  "license": "ISC"
+}
