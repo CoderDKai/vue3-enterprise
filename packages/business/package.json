@@ -5,6 +5,22 @@
   "main": "dist/esm/index.mjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index/cjs",
+      "import": "./dist/esm/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./esm/*": {
+      "import": "./dist/esm/*/index.mjs",
+      "types": "./dist/esm/*/index.d.ts"
+    },
+    "./cjs/*": {
+      "require": "./dist/cjs/*/index.cjs",
+      "types": "./dist/cjs/*/index.d.ts"
+    },
+    "./css/*": "./dist/css/*"
+  },
   "dependencies": {
     "@geniusk/components": "^0.0.1"
   },

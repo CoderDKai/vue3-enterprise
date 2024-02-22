@@ -59,8 +59,39 @@ const build = async (pkgDirName: string) => {
         }
       }),
       nodeResolve({
-        extensions: ['.mjs', '.js']
+        extensions: ['.mjs', '.js', '.json', '.ts']
+      }),
+      commonjs(),
+      esbuild({
+        sourceMap: true,
+        target: 'es2015',
+        loaders: {
+          '.vue': 'ts'
+        }
       })
-    ]
+    ],
+    external: await getExternal(pkgDirName),
+    treeshake: false
   })
+  const options: OutputOptions[] = [
+    {
+      format: 'cjs',
+      dir: resolvePackagePath(pkgDirName, 'dist', 'cjs'),  
+    },
+    {
+      format: 'esm',
+      dir: resolvePackagePath(pkgDirName, 'dist', 'esm'),
+      exports: undefined,
+      preserveModules: true,
+      preserveModulesRoot: resolvePackagePath(pkgDirName, 'src'),
+      sourcemap: true,
+      entryFileNames: '[name].mjs'
+    }
+  ]
+  return Promise.all(options.map((option) => bundle.write(option)))
 }
+
+console.log('[TS] 开始编译所有子模块')
+await build('components')
+await build('business')
+console.log('[TS] 编译所有子模块成功')
